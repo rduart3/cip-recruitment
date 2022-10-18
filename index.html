@@ -12,9 +12,9 @@
   </head>
   <body class="bg-gradient-to-r from-cip-white-300 to-cip-white-200 font-roboto">
     <header class="absolute inset-x-0 z-30">
-      <nav>
+      <nav class="relative">
         <div class="mx-auto max-w-7xl px-6 lg:px-8">
-          <div class="flex w-full items-center justify-between py-10">
+          <div x-data="{ open: false }" class="flex w-full items-center justify-between py-10">
             <a href="#">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 168 57" class="h-10 w-auto xl:h-14">
                 <path
@@ -36,36 +36,48 @@
               <a class="text-xl text-cip-white-200" href="/#quienes-somos">¿Quienes somos?</a>
               <a class="text-xl text-cip-white-200" href="/#que-buscamos">¿Qué buscamos?</a>
               <div>
-                <a href="#" class="rounded bg-cip-white-200 px-5 py-2 text-base font-bold text-cip-orange-500">Ver vacantes</a>
+                <a href="/#vacantes" class="rounded bg-cip-white-200 px-5 py-2 text-base font-bold text-cip-orange-500">Ver vacantes</a>
               </div>
             </div>
 
-            <div x-data="{ open: false }" class="pt-0.5 lg:hidden">
-              <button @click="open = true">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-7 w-7 text-cip-white-200">
-                  <path
-                    fill-rule="evenodd"
-                    d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10zm0 5.25a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75a.75.75 0 01-.75-.75z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
-              </button>
-              <div
-                x-show="open"
-                x-transition:enter="duration-150 ease-out"
-                x-transition:enter-start="opacity-0 scale-95"
-                x-transition:enter-end="opacity-100 scale-100"
-                x-transition:leave="duration-100 ease-in"
-                x-transition:leave-start="opacity-100 scale-100"
-                x-transition:leave-end="opacity-0 scale-95"
-                class="absolute inset-x-4 flex flex-col space-y-4 rounded bg-cip-white-200 p-4 shadow-md"
-                @click.outside="open = false"
-              >
-                <a href="/#quienes-somos" class="text-cip-blue-500">¿Quienes somos?</a>
-                <a href="/#que-buscamos" class="text-cip-blue-500">¿Qué buscamos?</a>
-                <div class="inline-flex w-full">
-                  <a href="#" class="w-full rounded bg-cip-orange-500 px-5 py-2 text-center text-base font-bold text-cip-white-200">Ver vacantes</a>
-                </div>
+            <button class="relative z-50 -mt-2 lg:hidden" @click="open = true">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-7 w-7 text-cip-white-200">
+                <path
+                  class="origin-center transition duration-100"
+                  :class="open ? 'scale-90 opacity-0' : ''"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                />
+                <path class="duration-100000 origin-center transition" :class="open ? '' : 'scale-90 opacity-0'" stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+
+            <div
+              x-show="open"
+              x-transition:enter="duration-150 ease-out"
+              x-transition:enter-start="opacity-0"
+              x-transition:enter-end="opacity-100"
+              x-transition:leave="duration-100 ease-in"
+              x-transition:leave-start="opacity-100"
+              x-transition:leave-end="opacity-0"
+              class="fixed inset-0 bg-slate-600/50"
+            ></div>
+            <div
+              x-show="open"
+              x-transition:enter="duration-150 ease-out"
+              x-transition:enter-start="opacity-0 scale-95"
+              x-transition:enter-end="opacity-100 scale-100"
+              x-transition:leave="duration-100 ease-in"
+              x-transition:leave-start="opacity-100 scale-100"
+              x-transition:leave-end="opacity-0 scale-95"
+              class="absolute inset-x-6 top-24 flex flex-col space-y-4 rounded bg-cip-white-200 p-4 shadow-md"
+              @click.outside="open = false"
+            >
+              <a class="text-cip-blue-500" href="/#quienes-somos" @click="open = false">¿Quienes somos?</a>
+              <a class="text-cip-blue-500" href="/#que-buscamos" @click="open = false">¿Qué buscamos?</a>
+              <div class="inline-flex w-full">
+                <a class="w-full rounded bg-cip-orange-500 px-5 py-2 text-center text-base font-bold text-cip-white-200" href="/#vacantes" @click="open = false">Ver vacantes</a>
               </div>
             </div>
           </div>
@@ -73,7 +85,7 @@
       </nav>
     </header>
 
-    <main>
+    <main class="overflow-hidden">
       <!-- Hero -->
       <section class="relative z-20 bg-gradient-to-r from-[#012f52] to-[#0d78c6] pb-28 pt-40 md:py-60 lg:py-72">
         <img class="absolute inset-0 h-full w-full object-cover object-right-top opacity-5 mix-blend-overlay md:object-center" src="/static/img/hero-bg.webp" />
@@ -98,9 +110,9 @@
       </section>
       <!-- End Hero -->
 
-      <section id="quienes-somos" class="relative z-10 pt-64 pb-64 md:py-36 lg:pb-0">
-        <div class="mx-auto max-w-7xl px-6 lg:px-8">
-          <div class="relative z-30 text-cip-gray-500 sm:max-w-md xl:max-w-lg">
+      <section id="quienes-somos" class="relative z-10 pb-[23rem] pt-52 md:pt-48 md:pb-48">
+        <div class="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
+          <div class="text-cip-gray-500 sm:max-w-md xl:max-w-lg">
             <h2 class="text-3xl font-bold text-cip-blue-500 sm:text-4xl md:text-5xl xl:text-6xl">¿Quienes Somos?</h2>
             <p class="mt-4 text-sm sm:text-base xl:text-lg">
               Somos una compañía de soluciones de software en USA. <br class="hidden sm:block" />
@@ -108,149 +120,150 @@
               flujo de reportes, visualización de datos, colaboracións segura entre departamentos y mucho más...
             </p>
             <div class="mt-8 inline-flex md:mt-20">
-              <a href="#" class="rounded bg-cip-orange-500 px-4 py-2 text-sm text-cip-white-200 lg:absolute lg:-bottom-10 xl:text-lg 2xl:-bottom-[22%]">Visitar nuestra web oficial</a>
+              <a href="#" class="rounded bg-cip-orange-500 px-4 py-2 text-sm text-cip-white-200 shadow-[0px_4px_50px_rgba(0,0,0,0.30)]">Visitar nuestra web oficial</a>
             </div>
           </div>
+          <div class="absolute -right-48 top-full z-20 translate-y-2 sm:top-48 sm:translate-y-0 md:-top-12 md:-right-72 lg:-right-10">
+            <img class="h-80 w-full sm:h-[25rem] md:h-[28rem] lg:h-[32rem]" src="/static/img/report.webp" decoding="async" width="1365" height="838" />
+          </div>
         </div>
-        <div class="absolute right-0 -bottom-11 z-20 md:-bottom-24 lg:top-20">
-          <img class="h-72 w-auto sm:h-80 md:h-96 xl:h-[32rem]" src="/static/img/analytics.webp" />
-        </div>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1720 211" class="absolute -inset-x-0 top-full">
-          <path fill="url(#a)" d="M1727.5 0H0l1727.5 211V0Z" />
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 1700 254" preserveAspectRatio="none" class="absolute inset-x-0 -bottom-0.5 max-h-72 w-full">
+          <path fill="url(#a)" d="m0 0 1740 254H0V0Z" />
           <defs>
-            <linearGradient id="a" x1="0" x2="1728" y1="105" y2="105" gradientUnits="userSpaceOnUse">
-              <stop stop-color="#E5E5E5" />
-              <stop offset="1" stop-color="#FAFAFA" />
+            <linearGradient id="a" x1="0" x2="1740" y1="127" y2="127" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#012F52" />
+              <stop offset="1" stop-color="#0D78C6" />
             </linearGradient>
           </defs>
         </svg>
       </section>
 
-      <section id="que-buscamos" class="bg-gradient-to-r from-[#012f52] to-[#0d78c6] pt-24 sm:pt-32 lg:pt-40 xl:pt-60">
-        <div class="mx-auto max-w-7xl px-6 lg:px-8">
-          <div class="sm:max-w-md xl:max-w-lg">
-            <h2 class="text-3xl font-bold text-cip-white-200 sm:text-4xl md:text-5xl xl:text-6xl">¿Qué Buscamos?</h2>
-            <p class="mt-4 text-sm text-cip-white-200 sm:text-base">
-              La cultura es muy importante para nosotros. <br class="hidden sm:block" />
-              Estamos tras personas con buen sentido del humor con quienes sea divertido trabajar.
-            </p>
+      <div class="bg-gradient-to-r from-[#012f52] to-[#0d78c6]">
+        <section id="que-buscamos" class="pt-24 sm:pt-32 lg:pt-20">
+          <div class="mx-auto max-w-7xl px-6 lg:px-8">
+            <div class="sm:max-w-md xl:max-w-lg">
+              <h2 class="text-3xl font-bold text-cip-white-200 sm:text-4xl md:text-5xl xl:text-6xl">¿Qué Buscamos?</h2>
+              <p class="mt-4 text-sm text-cip-white-200 sm:text-base">
+                La cultura es muy importante para nosotros. <br class="hidden sm:block" />
+                Estamos tras personas con buen sentido del humor con quienes sea divertido trabajar.
+              </p>
+            </div>
+            <div class="mt-10 grid grid-cols-3 gap-x-8 lg:gap-x-12 xl:gap-x-28">
+              <div class="flex flex-col items-center">
+                <img class="h-12 w-auto sm:h-20" src="/static/svg/book.svg" />
+                <span class="mt-4 text-center text-lg font-bold text-cip-white-200 sm:text-xl lg:text-3xl">Aprendizaje</span>
+                <p class="mt-2 hidden text-center text-cip-white-200 lg:block">
+                  Más allá de poseer un título académico, nos interesa trabajar con personas apasionadas por la tecnología y que no teman hacer preguntas y aprender.
+                </p>
+              </div>
+              <div class="flex flex-col items-center">
+                <img class="h-12 w-auto sm:h-20" src="/static/svg/user-group.svg" />
+                <span class="mt-4 text-center text-lg font-bold text-cip-white-200 sm:text-xl lg:text-3xl">Colaboración</span>
+                <p class="mt-2 hidden text-center text-cip-white-200 lg:block">
+                  Estamos expandiéndonos y <span class="font-bold">nuestro destino es Costa Rica</span>. Es por ello que la capacidad de mantenernos en contacto es muy importante para nosotros.
+                </p>
+              </div>
+              <div class="flex flex-col items-center">
+                <img class="h-12 w-auto sm:h-20" src="/static/svg/happy-face.svg" />
+                <span class="mt-4 text-center text-lg font-bold text-cip-white-200 sm:text-xl lg:text-3xl">Diversión</span>
+                <p class="mt-2 hidden text-center text-cip-white-200 lg:block">
+                  Nos gusta trabajar con personas que tengan un buen sentido del humor y sepan fusionar su personalidad con nuestro excelente ambiente laboral.
+                </p>
+              </div>
+            </div>
           </div>
-          <div class="mt-10 grid grid-cols-3 gap-x-8 lg:gap-x-12 xl:gap-x-28">
-            <div class="flex flex-col items-center">
-              <img class="h-12 w-auto sm:h-20" src="/static/svg/book.svg" />
-              <span class="mt-4 text-center text-lg font-bold text-cip-white-200 sm:text-xl lg:text-3xl">Aprendizaje</span>
-              <p class="mt-2 hidden text-center text-cip-white-200 lg:block">
-                Más allá de poseer un título académico, nos interesa trabajar con personas apasionadas por la tecnología y que no teman hacer preguntas y aprender.
-              </p>
+        </section>
+        <section id="que-ofrecemos" class="py-20 lg:pt-40">
+          <div class="mx-auto max-w-7xl px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-cip-white-200 sm:text-4xl md:text-5xl xl:text-6xl">¿Qué Ofrecemos?</h2>
+            <div class="mt-10 grid grid-cols-3 gap-x-8 lg:gap-x-12 xl:gap-x-28">
+              <div class="flex flex-col items-center">
+                <img class="h-12 w-auto sm:h-20" src="/static/svg/map-pin.svg" />
+                <span class="mt-4 text-center text-lg font-bold text-cip-white-200 sm:text-xl">Trabajo Remoto</span>
+                <p class="mt-2 hidden text-center text-cip-white-200 lg:block">Trabaja de cualquier lugar. En CIP Reporting eres libre de trabajar desde donde estés más cómodo.</p>
+              </div>
+              <div class="flex flex-col items-center">
+                <img class="h-12 w-auto sm:h-20" src="/static/svg/clock.svg" />
+                <span class="mt-4 text-center text-lg font-bold text-cip-white-200 sm:text-xl">Flexibilidad</span>
+                <p class="mt-2 hidden text-center text-cip-white-200 lg:block">
+                  No somos estrictos con los horarios laborales. Nos enfocamos en el cumplimiento de objetivos y no el cumplir un horario.
+                </p>
+              </div>
+              <div class="flex flex-col items-center">
+                <img class="h-12 w-auto sm:h-20" src="/static/svg/line-chart.svg" />
+                <span class="mt-4 text-center text-lg font-bold text-cip-white-200 sm:text-xl">Mejora Continua</span>
+                <p class="mt-2 hidden text-center text-cip-white-200 lg:block">
+                  A medida que evoluciones dentro de la compañía te enfrentarás a retos mas gandres que te permitirán desarrollarte como profesional.
+                </p>
+              </div>
             </div>
-            <div class="flex flex-col items-center">
-              <img class="h-12 w-auto sm:h-20" src="/static/svg/user-group.svg" />
-              <span class="mt-4 text-center text-lg font-bold text-cip-white-200 sm:text-xl lg:text-3xl">Colaboración</span>
-              <p class="mt-2 hidden text-center text-cip-white-200 lg:block">
-                Estamos expandiéndonos y <span class="font-bold">nuestro destino es Costa Rica</span>. Es por ello que la capacidad de mantenernos en contacto es muy importante para nosotros.
-              </p>
-            </div>
-            <div class="flex flex-col items-center">
-              <img class="h-12 w-auto sm:h-20" src="/static/svg/happy-face.svg" />
-              <span class="mt-4 text-center text-lg font-bold text-cip-white-200 sm:text-xl lg:text-3xl">Diversión</span>
-              <p class="mt-2 hidden text-center text-cip-white-200 lg:block">
-                Nos gusta trabajar con personas que tengan un buen sentido del humor y sepan fusionar su personalidad con nuestro excelente ambiente laboral.
-              </p>
+            <div class="mt-16 inline-flex w-full justify-center">
+              <a href="/#vacantes" class="rounded bg-cip-white-200 px-16 py-2 text-base font-bold text-cip-orange-500">Ver vacantes</a>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section id="que-ofrecemos" class="bg-gradient-to-r from-[#012f52] to-[#0d78c6] py-20 lg:pt-40">
-        <div class="mx-auto max-w-7xl px-6 lg:px-8">
-          <h2 class="text-3xl font-bold text-cip-white-200 sm:text-4xl md:text-5xl xl:text-6xl">¿Qué Ofrecemos?</h2>
-          <div class="mt-10 grid grid-cols-3 gap-x-8 lg:gap-x-12 xl:gap-x-28">
-            <div class="flex flex-col items-center">
-              <img class="h-12 w-auto sm:h-20" src="/static/svg/map-pin.svg" />
-              <span class="mt-4 text-center text-lg font-bold text-cip-white-200 sm:text-xl">Trabajo Remoto</span>
-              <p class="mt-2 hidden text-center text-cip-white-200 lg:block">Trabaja de cualquier lugar. En CIP Reporting eres libre de trabajar desde donde estés más cómodo.</p>
-            </div>
-            <div class="flex flex-col items-center">
-              <img class="h-12 w-auto sm:h-20" src="/static/svg/clock.svg" />
-              <span class="mt-4 text-center text-lg font-bold text-cip-white-200 sm:text-xl">Flexibilidad</span>
-              <p class="mt-2 hidden text-center text-cip-white-200 lg:block">
-                No somos estrictos con los horarios laborales. Nos enfocamos en el cumplimiento de objetivos y no el cumplir un horario.
+        <section id="team-cr" class="relative overflow-hidden py-40 sm:py-32">
+          <div class="mx-auto max-w-7xl px-6 lg:relative lg:px-8">
+            <div class="max-w-sm sm:max-w-md">
+              <h2 class="text-3xl font-bold text-cip-white-200 sm:text-4xl md:text-5xl xl:text-6xl">#Team-CR</h2>
+              <p class="mt-4 text-sm text-cip-white-200 sm:text-base">
+                Con el fin de ampliar nuestra capacidad, hace un tiempo decidimos expandir nuestro equipo de trabajo situado en Washington más allá de nuestras fronteras, reclutando personas altamente
+                capacitadas para enriquecer nuestro equipo y hemos encontrado en Costa Rica un entorno excelente para ello, por esto nuestro equipo en Costa Rica esta en continuo crecimiento.
               </p>
             </div>
-            <div class="flex flex-col items-center">
-              <img class="h-12 w-auto sm:h-20" src="/static/svg/line-chart.svg" />
-              <span class="mt-4 text-center text-lg font-bold text-cip-white-200 sm:text-xl">Mejora Continua</span>
-              <p class="mt-2 hidden text-center text-cip-white-200 lg:block">
-                A medida que evoluciones dentro de la compañía te enfrentarás a retos mas gandres que te permitirán desarrollarte como profesional.
-              </p>
+            <div class="mt-16 inline-flex w-full justify-center sm:mt-6 sm:justify-start">
+              <a href="/#vacantes" class="rounded bg-cip-white-200 px-16 py-2 text-base font-bold text-cip-orange-500">Ver vacantes</a>
             </div>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 222 200" class="absolute top-0 -right-40 h-80 w-auto sm:h-96 md:-right-28 lg:right-6">
+              <g clip-path="url(#b)" filter="url(#a)">
+                <path
+                  fill="#F2F2F2"
+                  d="m19.68 38.739-1.858-10.083-3.45-2.388c-1.77-.265-6.476-1.114-11.147-2.388-5.839-1.592-1.858-2.918-2.389-5.041-.53-2.123.796-1.592 4.777-1.592s3.45.53 5.574 0c2.123-.53 1.858 0 1.061-2.123-1.592-1.327-1.061-2.123.797-3.715 1.857.266 1.061.796 3.98.796 2.92 0 .797-1.326.531-2.653-.265-1.327-1.061-1.857-.53-2.388.53-.53 0-2.388 1.592-4.776C19.892.478 21.448 0 22.068 0c5.485 1.769 16.667 5.36 17.516 5.572 1.062.265 11.678 6.633 14.597 7.43 2.92.795 2.92 0 4.512.795 1.593.796 1.062 0 4.247 1.327 3.184 1.327 3.715-.796 9.82-1.327 6.104-.53 2.123-.796 4.246-1.592s3.715-5.04 5.573-5.04c1.858 0 .531 1.326 1.858 2.918s5.308-.266 13.27 2.918c7.962 3.185 1.062.531 7.166 2.123s1.061.796 2.654 2.653c1.592 1.858 2.123 1.592 3.715 4.246 1.593 2.653.531 1.061 1.858 3.184 1.327 2.122 3.716-.53 5.043 0s2.919 1.857 3.981 2.653c1.061.796 1.592.796 4.246 2.919 2.654 2.123 1.327 0 5.043-2.123 3.715-2.122 2.654-.796 8.227-.796s3.45 0 5.839-.796c2.388-.796 1.327-.265 2.654-3.98s-1.062-3.715 0-5.306c1.061-1.592 1.592 0 4.246 4.245 2.654 4.245 1.593 2.653 3.716 8.756s5.042 15.124 7.431 19.104c2.389 3.98 3.716 6.633 4.246 7.96.531 1.327 16.455 17.778 17.251 18.839.796 1.061 5.574 2.123 6.635 2.388 1.062.265 0 1.061 0 2.388s.796 1.327 1.858 2.388 10.881 14.859 11.412 15.124c.531.265 2.123 1.327 4.777 2.653 2.654 1.327 4.247 2.388 5.839 3.715 1.593 1.327 2.389-.265 3.45 0 1.062.265 1.858 1.592 2.654 3.715.637 1.698.266 2.299 0 2.388-.973.884-3.397 2.653-5.308 2.653-2.388 0-1.327-.796-2.388-.796-1.062 0-3.45-3.98-6.104-7.164-2.654-3.184-1.858.265-5.043 0s-1.327 4.511 0 7.164c1.327 2.654-1.327.796-2.123 1.592-.637.637-2.035.973-2.654 1.062l-1.062 23.084c1.062.796 3.45 2.812 4.512 4.51 1.327 2.123 1.327 1.592 4.512 2.388 3.185.796 2.123.796 7.962 5.042 5.839 4.245.531 1.061 0 2.653s-5.043.796-6.901 2.123c-1.857 1.327-3.45 1.061-6.369 3.184-2.92 2.123-1.327 1.857-1.593 2.653-.265.796.531 1.062 1.593 4.246 1.061 3.184 2.123 3.714 3.715 5.306 1.593 1.592 0 2.654 0 6.103v4.511c0 2.122 0 1.857-1.592 3.184-1.592 1.326-1.062.796-8.493 7.694-.531 2.389 1.327 0 3.45 1.858 2.124 1.857 1.593 0 2.92 4.245-.531 1.592-1.062.531-3.716.531s-2.123-.531-5.839-2.123c-3.715-1.592-2.123-1.326-2.388-2.653-.266-1.327 0-1.061-1.062-1.858-1.061-.796-1.327-2.122-1.858-3.714-.53-1.592-1.061-1.327-1.061-2.123v-10.348c0-1.857-1.062-2.919-1.593-3.449-.53-.531-1.592-1.062-2.919-1.858s-1.592 0-3.185 0c-1.592 0-2.654-2.122-3.715-2.918-1.062-.796-2.124-1.592-3.981-3.45-1.858-1.857-1.062.266-3.716 0-2.654-.265-1.858.266-3.45 1.062s0 .796 0 2.388c0 1.592 1.062 2.122 3.45 6.633 1.062 2.388 1.327 0 2.654 0s2.654 0 4.246 1.592c1.593 1.592.797.796 1.858.796 1.062 0 .531 1.857.796 2.388.266.531 2.654 3.184 3.451 5.307.637 1.698.265 1.946 0 1.857-1.593.265-5.043.637-6.105 0-1.327-.796-2.919-1.327-5.573-1.857-2.654-.531-3.715-.796-7.166-1.327-3.45-.531-3.715-1.327-5.308-1.857-1.592-.531-6.104-2.919-7.165-4.511-1.062-1.592-1.327-1.327-2.654-2.388s-.531-2.123 0-3.715c.53-1.592 1.592-1.592 2.654-2.918 1.061-1.327 1.592-1.592 2.123-2.388.531-.796.531-1.592 1.858-3.184s1.327-2.123 1.592-2.654l1.592-3.184c.531-1.061 2.124-4.51-3.184-10.083-5.308-5.572-1.858-3.714-3.981-5.837-2.124-2.123-3.185-4.511-4.512-5.837-1.327-1.327-4.512-2.654-5.839-3.98-1.327-1.327-2.919-1.858-4.777-2.654-1.858-.796-1.062-.53-3.981-1.857-2.92-1.327-5.839-2.653-6.635-3.449l-2.123-2.123c-1.327-1.327-1.062-1.327-2.389-2.919-1.327-1.592-1.858-1.061-5.043-2.122-3.184-1.062-1.061 0-2.654 0-1.592 0-1.592-.266-7.431-1.062-5.838-.796-5.573-1.592-6.9-2.122-1.327-.531-5.839-2.654-7.166-3.45-1.327-.796-1.592-1.326-2.654-2.122-1.061-.797-1.061-1.062-2.123-3.45-1.062-2.388 0-1.061 1.062-3.449 0-.796.265-2.388 0-4.51-.266-2.124-1.327-2.654-1.858-2.654-.531 0-1.062-2.388-1.327-3.184-.266-.796-.531-1.062-1.062-2.388-.53-1.327-.265-1.062-.796-2.654-.53-1.592-.796-1.061-1.858-1.857-1.061-.796-1.327-1.061-2.654-1.061s-.796-1.062-1.592-1.858-.796-.796-7.166-2.653c-4.777-1.857-1.592-.53-2.654-2.123-1.061-1.592-1.327-1.592-2.389-2.388-1.061-.796-.796-1.061-4.511-3.45-2.654-.53-1.327 0-6.635-1.591-1.64-.492-2.418-.68-2.742-.744a.711.711 0 0 1-.194-.024c.086.26.189.535.282.768-.443.265-1.911 1.433-4.247 3.98-.265.796.797 1.061 2.123 1.061 1.327 0 1.062 1.592 4.778 6.368 0 1.062.707 1.504 1.061 1.592l1.327 1.062c.62.265 2.336 1.008 4.247 1.857 2.388 1.061 1.327 0 3.715 0 2.389 0 1.593.796 4.247 1.061 2.654.266 2.388 1.062 2.919 1.592.53.531.796 2.388.796 6.634v1.857c-.53.708-2.017 2.282-3.715 2.919-2.123.796-4.777 4.245-5.308 8.225 0 1.858 0 1.062-9.29 1.062-1.857-2.389-1.326-2.123-2.653-4.511s-.797-1.062-2.123-3.184c-1.328-2.123-1.593-2.123-2.92-3.715-1.327-1.592-2.654-2.653-8.493-5.041-3.184-.796-2.123-.796-6.37-1.858-4.246-1.061-1.592-.265-10.084-5.041-2.654-3.45-7.166-7.43-7.962-10.879-.797-3.45-5.043-15.654 0-19.9 3.98-1.592 0-1.327.796-2.919s-.796-3.184-.796-4.245.796-1.592 2.123-2.388c1.327-.796 4.246-.53 5.839-1.061 1.273-.425 2.3-2.654 2.654-3.715Z"
+                />
+              </g>
+              <defs>
+                <clipPath id="b">
+                  <path fill="#fff" d="M0 0h222v200H0z" />
+                </clipPath>
+                <filter id="a" width="223.244" height="200.857" x="0" y="0" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse">
+                  <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                  <feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+                  <feColorMatrix in="SourceAlpha" result="hardAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" />
+                  <feOffset dx="2.487" dy="2.487" />
+                  <feGaussianBlur stdDeviation=".622" />
+                  <feComposite in2="hardAlpha" k2="-1" k3="1" operator="arithmetic" />
+                  <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0" />
+                  <feBlend in2="shape" result="effect1_innerShadow_6_2" />
+                </filter>
+              </defs>
+            </svg>
           </div>
-          <div class="mt-16 inline-flex w-full justify-center">
-            <a href="#" class="rounded bg-cip-white-200 px-16 py-2 text-base font-bold text-cip-orange-500">Ver vacantes</a>
-          </div>
-        </div>
-      </section>
+        </section>
 
-      <section id="team-cr" class="relative overflow-hidden bg-gradient-to-r from-[#012f52] to-[#0d78c6] py-40 sm:py-32">
-        <div class="mx-auto max-w-7xl px-6 lg:relative lg:px-8">
-          <div class="max-w-sm sm:max-w-md">
-            <h2 class="text-3xl font-bold text-cip-white-200 sm:text-4xl md:text-5xl xl:text-6xl">#Team-CR</h2>
-            <p class="mt-4 text-sm text-cip-white-200 sm:text-base">
-              Con el fin de ampliar nuestra capacidad, hace un tiempo decidimos expandir nuestro equipo de trabajo situado en Washington más allá de nuestras fronteras, reclutando personas altamente
-              capacitadas para enriquecer nuestro equipo y hemos encontrado en Costa Rica un entorno excelente para ello, por esto nuestro equipo en Costa Rica esta en continuo crecimiento.
-            </p>
-          </div>
-          <div class="mt-16 inline-flex w-full justify-center sm:mt-6 sm:justify-start">
-            <a href="#" class="rounded bg-cip-white-200 px-16 py-2 text-base font-bold text-cip-orange-500">Ver vacantes</a>
-          </div>
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 222 200" class="absolute top-0 -right-40 h-80 w-auto sm:h-96 md:-right-28 lg:right-6">
-            <g clip-path="url(#b)" filter="url(#a)">
-              <path
-                fill="#F2F2F2"
-                d="m19.68 38.739-1.858-10.083-3.45-2.388c-1.77-.265-6.476-1.114-11.147-2.388-5.839-1.592-1.858-2.918-2.389-5.041-.53-2.123.796-1.592 4.777-1.592s3.45.53 5.574 0c2.123-.53 1.858 0 1.061-2.123-1.592-1.327-1.061-2.123.797-3.715 1.857.266 1.061.796 3.98.796 2.92 0 .797-1.326.531-2.653-.265-1.327-1.061-1.857-.53-2.388.53-.53 0-2.388 1.592-4.776C19.892.478 21.448 0 22.068 0c5.485 1.769 16.667 5.36 17.516 5.572 1.062.265 11.678 6.633 14.597 7.43 2.92.795 2.92 0 4.512.795 1.593.796 1.062 0 4.247 1.327 3.184 1.327 3.715-.796 9.82-1.327 6.104-.53 2.123-.796 4.246-1.592s3.715-5.04 5.573-5.04c1.858 0 .531 1.326 1.858 2.918s5.308-.266 13.27 2.918c7.962 3.185 1.062.531 7.166 2.123s1.061.796 2.654 2.653c1.592 1.858 2.123 1.592 3.715 4.246 1.593 2.653.531 1.061 1.858 3.184 1.327 2.122 3.716-.53 5.043 0s2.919 1.857 3.981 2.653c1.061.796 1.592.796 4.246 2.919 2.654 2.123 1.327 0 5.043-2.123 3.715-2.122 2.654-.796 8.227-.796s3.45 0 5.839-.796c2.388-.796 1.327-.265 2.654-3.98s-1.062-3.715 0-5.306c1.061-1.592 1.592 0 4.246 4.245 2.654 4.245 1.593 2.653 3.716 8.756s5.042 15.124 7.431 19.104c2.389 3.98 3.716 6.633 4.246 7.96.531 1.327 16.455 17.778 17.251 18.839.796 1.061 5.574 2.123 6.635 2.388 1.062.265 0 1.061 0 2.388s.796 1.327 1.858 2.388 10.881 14.859 11.412 15.124c.531.265 2.123 1.327 4.777 2.653 2.654 1.327 4.247 2.388 5.839 3.715 1.593 1.327 2.389-.265 3.45 0 1.062.265 1.858 1.592 2.654 3.715.637 1.698.266 2.299 0 2.388-.973.884-3.397 2.653-5.308 2.653-2.388 0-1.327-.796-2.388-.796-1.062 0-3.45-3.98-6.104-7.164-2.654-3.184-1.858.265-5.043 0s-1.327 4.511 0 7.164c1.327 2.654-1.327.796-2.123 1.592-.637.637-2.035.973-2.654 1.062l-1.062 23.084c1.062.796 3.45 2.812 4.512 4.51 1.327 2.123 1.327 1.592 4.512 2.388 3.185.796 2.123.796 7.962 5.042 5.839 4.245.531 1.061 0 2.653s-5.043.796-6.901 2.123c-1.857 1.327-3.45 1.061-6.369 3.184-2.92 2.123-1.327 1.857-1.593 2.653-.265.796.531 1.062 1.593 4.246 1.061 3.184 2.123 3.714 3.715 5.306 1.593 1.592 0 2.654 0 6.103v4.511c0 2.122 0 1.857-1.592 3.184-1.592 1.326-1.062.796-8.493 7.694-.531 2.389 1.327 0 3.45 1.858 2.124 1.857 1.593 0 2.92 4.245-.531 1.592-1.062.531-3.716.531s-2.123-.531-5.839-2.123c-3.715-1.592-2.123-1.326-2.388-2.653-.266-1.327 0-1.061-1.062-1.858-1.061-.796-1.327-2.122-1.858-3.714-.53-1.592-1.061-1.327-1.061-2.123v-10.348c0-1.857-1.062-2.919-1.593-3.449-.53-.531-1.592-1.062-2.919-1.858s-1.592 0-3.185 0c-1.592 0-2.654-2.122-3.715-2.918-1.062-.796-2.124-1.592-3.981-3.45-1.858-1.857-1.062.266-3.716 0-2.654-.265-1.858.266-3.45 1.062s0 .796 0 2.388c0 1.592 1.062 2.122 3.45 6.633 1.062 2.388 1.327 0 2.654 0s2.654 0 4.246 1.592c1.593 1.592.797.796 1.858.796 1.062 0 .531 1.857.796 2.388.266.531 2.654 3.184 3.451 5.307.637 1.698.265 1.946 0 1.857-1.593.265-5.043.637-6.105 0-1.327-.796-2.919-1.327-5.573-1.857-2.654-.531-3.715-.796-7.166-1.327-3.45-.531-3.715-1.327-5.308-1.857-1.592-.531-6.104-2.919-7.165-4.511-1.062-1.592-1.327-1.327-2.654-2.388s-.531-2.123 0-3.715c.53-1.592 1.592-1.592 2.654-2.918 1.061-1.327 1.592-1.592 2.123-2.388.531-.796.531-1.592 1.858-3.184s1.327-2.123 1.592-2.654l1.592-3.184c.531-1.061 2.124-4.51-3.184-10.083-5.308-5.572-1.858-3.714-3.981-5.837-2.124-2.123-3.185-4.511-4.512-5.837-1.327-1.327-4.512-2.654-5.839-3.98-1.327-1.327-2.919-1.858-4.777-2.654-1.858-.796-1.062-.53-3.981-1.857-2.92-1.327-5.839-2.653-6.635-3.449l-2.123-2.123c-1.327-1.327-1.062-1.327-2.389-2.919-1.327-1.592-1.858-1.061-5.043-2.122-3.184-1.062-1.061 0-2.654 0-1.592 0-1.592-.266-7.431-1.062-5.838-.796-5.573-1.592-6.9-2.122-1.327-.531-5.839-2.654-7.166-3.45-1.327-.796-1.592-1.326-2.654-2.122-1.061-.797-1.061-1.062-2.123-3.45-1.062-2.388 0-1.061 1.062-3.449 0-.796.265-2.388 0-4.51-.266-2.124-1.327-2.654-1.858-2.654-.531 0-1.062-2.388-1.327-3.184-.266-.796-.531-1.062-1.062-2.388-.53-1.327-.265-1.062-.796-2.654-.53-1.592-.796-1.061-1.858-1.857-1.061-.796-1.327-1.061-2.654-1.061s-.796-1.062-1.592-1.858-.796-.796-7.166-2.653c-4.777-1.857-1.592-.53-2.654-2.123-1.061-1.592-1.327-1.592-2.389-2.388-1.061-.796-.796-1.061-4.511-3.45-2.654-.53-1.327 0-6.635-1.591-1.64-.492-2.418-.68-2.742-.744a.711.711 0 0 1-.194-.024c.086.26.189.535.282.768-.443.265-1.911 1.433-4.247 3.98-.265.796.797 1.061 2.123 1.061 1.327 0 1.062 1.592 4.778 6.368 0 1.062.707 1.504 1.061 1.592l1.327 1.062c.62.265 2.336 1.008 4.247 1.857 2.388 1.061 1.327 0 3.715 0 2.389 0 1.593.796 4.247 1.061 2.654.266 2.388 1.062 2.919 1.592.53.531.796 2.388.796 6.634v1.857c-.53.708-2.017 2.282-3.715 2.919-2.123.796-4.777 4.245-5.308 8.225 0 1.858 0 1.062-9.29 1.062-1.857-2.389-1.326-2.123-2.653-4.511s-.797-1.062-2.123-3.184c-1.328-2.123-1.593-2.123-2.92-3.715-1.327-1.592-2.654-2.653-8.493-5.041-3.184-.796-2.123-.796-6.37-1.858-4.246-1.061-1.592-.265-10.084-5.041-2.654-3.45-7.166-7.43-7.962-10.879-.797-3.45-5.043-15.654 0-19.9 3.98-1.592 0-1.327.796-2.919s-.796-3.184-.796-4.245.796-1.592 2.123-2.388c1.327-.796 4.246-.53 5.839-1.061 1.273-.425 2.3-2.654 2.654-3.715Z"
-              />
-            </g>
-            <defs>
-              <clipPath id="b">
-                <path fill="#fff" d="M0 0h222v200H0z" />
-              </clipPath>
-              <filter id="a" width="223.244" height="200.857" x="0" y="0" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse">
-                <feFlood flood-opacity="0" result="BackgroundImageFix" />
-                <feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
-                <feColorMatrix in="SourceAlpha" result="hardAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" />
-                <feOffset dx="2.487" dy="2.487" />
-                <feGaussianBlur stdDeviation=".622" />
-                <feComposite in2="hardAlpha" k2="-1" k3="1" operator="arithmetic" />
-                <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0" />
-                <feBlend in2="shape" result="effect1_innerShadow_6_2" />
-              </filter>
-            </defs>
-          </svg>
-        </div>
-      </section>
-
-      <section id="vacantes" class="bg-gradient-to-r from-[#012f52] to-[#0d78c6] pb-40 lg:pt-40">
-        <div class="mx-auto max-w-7xl px-6 lg:px-8">
-          <div class="flex flex-col items-center sm:flex-row sm:gap-x-10">
-            <img class="aspect-square h-40 w-40 flex-shrink-0 rounded-full sm:h-44 sm:w-44" src="/static/img/cto.webp" alt="Jason Riffel" />
-            <div class="mt-10 sm:mt-0 md:max-w-sm">
-              <p class="text-center text-sm text-cip-white-200 sm:text-start sm:text-base">
-                <span class="block text-xl font-bold">Hi!</span>
-                Im Jason Riffel Co-Founder, CTO & COO of CIP Reporting.
-                <span class="mt-6 block">If you are interested in working with us I would love to hear from you. Check our open positions and apply to the one you fit the most!</span>
-              </p>
+        <section id="vacantes" class="pb-40 lg:pt-40">
+          <div class="mx-auto max-w-7xl px-6 lg:px-8">
+            <div class="flex flex-col items-center sm:flex-row sm:gap-x-10">
+              <img class="aspect-square h-40 w-40 flex-shrink-0 rounded-full sm:h-44 sm:w-44" src="/static/img/cto.webp" alt="Jason Riffel" />
+              <div class="mt-10 sm:mt-0 md:max-w-sm">
+                <p class="text-center text-sm text-cip-white-200 sm:text-start sm:text-base">
+                  <span class="block text-xl font-bold">Hi!</span>
+                  Im Jason Riffel Co-Founder, CTO & COO of CIP Reporting.
+                  <span class="mt-6 block">If you are interested in working with us I would love to hear from you. Check our open positions and apply to the one you fit the most!</span>
+                </p>
+              </div>
+            </div>
+            <div class="mt-14 md:max-w-2xl">
+              <h3 class="text-2xl font-bold text-cip-white-200">Vacantes abiertas</h3>
+              <hr class="mt-2 mb-4" />
+              <div class="inline-flex w-full flex-col gap-y-4">
+                <a class="w-full rounded bg-cip-white-200 py-2 text-center text-cip-blue-500" href="/software-developer/">Software developer</a>
+                <a class="w-full rounded bg-cip-white-200 py-2 text-center text-cip-blue-500" href="/software-developer/">Software developer</a>
+              </div>
             </div>
           </div>
-          <div class="mt-14 md:max-w-2xl">
-            <h3 class="text-2xl font-bold text-cip-white-200">Vacantes abiertas</h3>
-            <hr class="mt-2 mb-4" />
-            <div class="inline-flex w-full flex-col gap-y-4">
-              <a class="w-full rounded bg-cip-white-200 py-2 text-center text-cip-blue-500" href="/vacante/">Software developer</a>
-              <a class="w-full rounded bg-cip-white-200 py-2 text-center text-cip-blue-500" href="/vacante/">Software developer</a>
-            </div>
-          </div>
-        </div>
-      </section>
+        </section>
+      </div>
     </main>
     <script type="module" src="/main.js"></script>
   </body>
