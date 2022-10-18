@@ -12,9 +12,9 @@
   </head>
   <body>
     <header class="absolute inset-x-0 z-30">
-      <nav>
+      <nav class="relative">
         <div class="mx-auto max-w-7xl px-6 lg:px-8">
-          <div class="flex w-full items-center justify-between py-10">
+          <div x-data="{ open: false }" class="flex w-full items-center justify-between py-10">
             <a href="#">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 168 57" class="h-10 w-auto xl:h-14">
                 <path
@@ -36,36 +36,48 @@
               <a class="text-xl text-cip-white-200" href="/#quienes-somos">¿Quienes somos?</a>
               <a class="text-xl text-cip-white-200" href="/#que-buscamos">¿Qué buscamos?</a>
               <div>
-                <a href="#" class="rounded bg-cip-white-200 px-5 py-2 text-base font-bold text-cip-orange-500">Ver vacantes</a>
+                <a href="/#vacantes" class="rounded bg-cip-white-200 px-5 py-2 text-base font-bold text-cip-orange-500">Ver vacantes</a>
               </div>
             </div>
 
-            <div x-data="{ open: false }" class="pt-0.5 lg:hidden">
-              <button @click="open = true">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-7 w-7 text-cip-white-200">
-                  <path
-                    fill-rule="evenodd"
-                    d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10zm0 5.25a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75a.75.75 0 01-.75-.75z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
-              </button>
-              <div
-                x-show="open"
-                x-transition:enter="duration-150 ease-out"
-                x-transition:enter-start="opacity-0 scale-95"
-                x-transition:enter-end="opacity-100 scale-100"
-                x-transition:leave="duration-100 ease-in"
-                x-transition:leave-start="opacity-100 scale-100"
-                x-transition:leave-end="opacity-0 scale-95"
-                class="absolute inset-x-4 flex flex-col space-y-4 rounded bg-cip-white-200 p-4 shadow-md"
-                @click.outside="open = false"
-              >
-                <a href="/#quienes-somos" class="text-cip-blue-500">¿Quienes somos?</a>
-                <a href="/#que-buscamos" class="text-cip-blue-500">¿Qué buscamos?</a>
-                <div class="inline-flex w-full">
-                  <a href="#" class="w-full rounded bg-cip-orange-500 px-5 py-2 text-center text-base font-bold text-cip-white-200">Ver vacantes</a>
-                </div>
+            <button class="relative z-50 -mt-2 lg:hidden" @click="open = true">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-7 w-7 text-cip-white-200">
+                <path
+                  class="origin-center transition duration-100"
+                  :class="open ? 'scale-90 opacity-0' : ''"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                />
+                <path class="duration-100000 origin-center transition" :class="open ? '' : 'scale-90 opacity-0'" stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+
+            <div
+              x-show="open"
+              x-transition:enter="duration-150 ease-out"
+              x-transition:enter-start="opacity-0"
+              x-transition:enter-end="opacity-100"
+              x-transition:leave="duration-100 ease-in"
+              x-transition:leave-start="opacity-100"
+              x-transition:leave-end="opacity-0"
+              class="fixed inset-0 bg-slate-600/50"
+            ></div>
+            <div
+              x-show="open"
+              x-transition:enter="duration-150 ease-out"
+              x-transition:enter-start="opacity-0 scale-95"
+              x-transition:enter-end="opacity-100 scale-100"
+              x-transition:leave="duration-100 ease-in"
+              x-transition:leave-start="opacity-100 scale-100"
+              x-transition:leave-end="opacity-0 scale-95"
+              class="absolute inset-x-6 top-24 flex flex-col space-y-4 rounded bg-cip-white-200 p-4 shadow-md"
+              @click.outside="open = false"
+            >
+              <a class="text-cip-blue-500" href="/#quienes-somos" @click="open = false">¿Quienes somos?</a>
+              <a class="text-cip-blue-500" href="/#que-buscamos" @click="open = false">¿Qué buscamos?</a>
+              <div class="inline-flex w-full">
+                <a class="w-full rounded bg-cip-orange-500 px-5 py-2 text-center text-base font-bold text-cip-white-200" href="/#vacantes" @click="open = false">Ver vacantes</a>
               </div>
             </div>
           </div>
